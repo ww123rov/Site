@@ -24,6 +24,43 @@ transition: all 0.3s ease;
 --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 --card-glow: 0 0 15px rgba(99, 102, 241, 0.2);
 }
+
+/* Theme color variations */
+body.theme-red {
+--primary-color: #ef4444;
+--secondary-color: #f87171;
+--accent-color: #dc2626;
+--card-glow: 0 0 15px rgba(239, 68, 68, 0.2);
+}
+
+body.theme-blue {
+--primary-color: #3b82f6;
+--secondary-color: #60a5fa;
+--accent-color: #2563eb;
+--card-glow: 0 0 15px rgba(59, 130, 246, 0.2);
+}
+
+body.theme-gray {
+--primary-color: #6b7280;
+--secondary-color: #9ca3af;
+--accent-color: #4b5563;
+--card-glow: 0 0 15px rgba(107, 114, 128, 0.2);
+}
+
+body.theme-yellow {
+--primary-color: #eab308;
+--secondary-color: #facc15;
+--accent-color: #ca8a04;
+--card-glow: 0 0 15px rgba(234, 179, 8, 0.2);
+}
+
+body.theme-purple {
+--primary-color: #a855f7;
+--secondary-color: #c084fc;
+--accent-color: #9333ea;
+--card-glow: 0 0 15px rgba(168, 85, 247, 0.2);
+}
+
 body.light-theme {
 --primary-color: #4f46e5;
 --secondary-color: #7c3aed;
@@ -36,6 +73,42 @@ body.light-theme {
 --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 --card-glow: 0 0 15px rgba(99, 102, 241, 0.1);
 }
+
+body.light-theme.theme-red {
+--primary-color: #ef4444;
+--secondary-color: #f87171;
+--accent-color: #dc2626;
+--card-glow: 0 0 15px rgba(239, 68, 68, 0.1);
+}
+
+body.light-theme.theme-blue {
+--primary-color: #3b82f6;
+--secondary-color: #60a5fa;
+--accent-color: #2563eb;
+--card-glow: 0 0 15px rgba(59, 130, 246, 0.1);
+}
+
+body.light-theme.theme-gray {
+--primary-color: #6b7280;
+--secondary-color: #9ca3af;
+--accent-color: #4b5563;
+--card-glow: 0 0 15px rgba(107, 114, 128, 0.1);
+}
+
+body.light-theme.theme-yellow {
+--primary-color: #eab308;
+--secondary-color: #facc15;
+--accent-color: #ca8a04;
+--card-glow: 0 0 15px rgba(234, 179, 8, 0.1);
+}
+
+body.light-theme.theme-purple {
+--primary-color: #a855f7;
+--secondary-color: #c084fc;
+--accent-color: #9333ea;
+--card-glow: 0 0 15px rgba(168, 85, 247, 0.1);
+}
+
 body {
 background-color: var(--bg-dark);
 color: var(--text-color);
@@ -140,6 +213,64 @@ font-size: 20px;
 background: var(--bg-card-hover);
 transform: scale(1.1) rotate(10deg);
 }
+
+/* Theme color switcher */
+.theme-colors {
+position: fixed;
+top: 80px;
+right: 20px;
+background: var(--bg-card);
+border: 1px solid var(--primary-color);
+border-radius: 12px;
+padding: 10px;
+display: flex;
+flex-direction: column;
+gap: 10px;
+z-index: 100;
+box-shadow: var(--card-glow);
+}
+
+.color-option {
+width: 25px;
+height: 25px;
+border-radius: 50%;
+cursor: pointer;
+transition: transform 0.3s ease;
+border: 2px solid transparent;
+}
+
+.color-option:hover {
+transform: scale(1.2);
+}
+
+.color-option.active {
+border-color: var(--text-color);
+}
+
+.color-default {
+background: linear-gradient(135deg, #6366f1, #8b5cf6);
+}
+
+.color-red {
+background: linear-gradient(135deg, #ef4444, #f87171);
+}
+
+.color-blue {
+background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.color-gray {
+background: linear-gradient(135deg, #6b7280, #9ca3af);
+}
+
+.color-yellow {
+background: linear-gradient(135deg, #eab308, #facc15);
+}
+
+.color-purple {
+background: linear-gradient(135deg, #a855f7, #c084fc);
+}
+
 .grid-container {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -344,6 +475,7 @@ opacity: 0;
 .delay-3 { animation-delay: 0.3s; }
 .delay-4 { animation-delay: 0.4s; }
 .delay-5 { animation-delay: 0.5s; }
+.delay-6 { animation-delay: 0.6s; }
 .background {
 position: fixed;
 top: 0;
@@ -456,6 +588,89 @@ box-shadow: 0 5px 15px rgba(99, 102, 241, 0.2);
 .social-icons i {
 font-size: 18px;
 }
+
+/* Ad banner styles */
+.ad-banner {
+position: fixed;
+bottom: 20px;
+left: 20px;
+background-color: var(--bg-card);
+border-radius: 12px;
+padding: 15px;
+width: 280px;
+box-shadow: var(--card-shadow), 0 0 15px rgba(255, 0, 0, 0.2);
+z-index: 50;
+border: 1px solid rgba(255, 0, 0, 0.3);
+display: flex;
+align-items: center;
+transition: all 0.3s ease;
+}
+
+.ad-banner:hover {
+transform: translateY(-5px);
+box-shadow: var(--card-shadow), 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+.ad-image {
+width: 60px;
+height: 60px;
+border-radius: 50%;
+overflow: hidden;
+margin-right: 15px;
+border: 2px solid rgba(255, 0, 0, 0.5);
+}
+
+.ad-image img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.ad-content {
+flex: 1;
+}
+
+.ad-title {
+font-weight: 600;
+font-size: 16px;
+margin-bottom: 5px;
+color: var(--text-color);
+}
+
+.ad-text {
+font-size: 14px;
+color: var(--text-subtle);
+margin-bottom: 5px;
+}
+
+.ad-location {
+font-size: 12px;
+color: rgba(255, 0, 0, 0.7);
+display: flex;
+align-items: center;
+}
+
+.ad-location i {
+margin-right: 5px;
+}
+
+.ad-close {
+position: absolute;
+top: 8px;
+right: 8px;
+width: 20px;
+height: 20px;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+color: var(--text-subtle);
+font-size: 14px;
+}
+
+.ad-close:hover {
+color: var(--text-color);
+}
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -470,6 +685,17 @@ font-size: 18px;
 <div class="theme-toggle" onclick="toggleTheme()">
 <i class="fas fa-moon"></i>
 </div>
+
+<!-- Theme color switcher -->
+<div class="theme-colors">
+<div class="color-option color-default active" data-theme="default" title="Default"></div>
+<div class="color-option color-red" data-theme="red" title="Red"></div>
+<div class="color-option color-blue" data-theme="blue" title="Blue"></div>
+<div class="color-option color-gray" data-theme="gray" title="Gray"></div>
+<div class="color-option color-yellow" data-theme="yellow" title="Yellow"></div>
+<div class="color-option color-purple" data-theme="purple" title="Purple"></div>
+</div>
+
 <div class="container">
 <header class="animate-zoom">
 <div class="profile-image">
@@ -494,7 +720,7 @@ font-size: 18px;
 <li>Возраст: 16 лет</li>
 <li>Родился в: Украине</li>
 <li>Нахожус в: Польше</li>
-<li>Время: (GMT+3)</li>
+<li>Время: (GMT+2)</li>
 </ul>
 </div>
 <div class="card animate-slide-right delay-2">
@@ -536,7 +762,6 @@ font-size: 18px;
 <ul>
 <li>DART404:ㅤ<a href="https://discord.gg/m8RRBSen5j" target="_blank">Discord</a></li>
 <li>Nexgen Client:ㅤ<a href="https://discord.gg/Kbhg9ztK6d" target="_blank">Discord</a></li>
-<li>ISH:ㅤВ разработке</li>
 </ul>
 </div>
 <div class="card animate-slide-left delay-5">
@@ -549,6 +774,16 @@ font-size: 18px;
 <p style="margin-top: 12px; color: var(--text-subtle);">
 Обычный типок, который страдает фигнёй в интернете. Страшный майнсруфтер/хойщик. Есть претензии ко мне? – пошёл нахуй.
 </p>
+</div>
+
+<!-- New card for language usage frequency -->
+<div class="card animate-slide-right delay-6">
+<div class="card-header">
+<div class="card-icon">
+<i class="fas fa-chart-bar"></i>
+</div>
+<h2 class="card-title">Частота использования языка</h2>
+</div>
 <div style="margin-top: 18px;">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
 <span style="color: var(--text-subtle);">Java</span>
@@ -575,6 +810,20 @@ font-size: 18px;
 </div>
 </div>
 </div>
+
+<!-- Ad banner -->
+<div class="ad-banner">
+<div class="ad-image">
+<img src="olga.png" alt="Olga">
+</div>
+<div class="ad-content">
+<div class="ad-title">Ольга</div>
+<div class="ad-text">За куни - куплю айфон</div>
+<div class="ad-location"><i class="fas fa-map-marker-alt"></i> Нахожусь 387 от тебя</div>
+</div>
+<div class="ad-close" onclick="closeAd()"><i class="fas fa-times"></i></div>
+</div>
+
 <script>
 function toggleTheme() {
 document.body.classList.toggle('light-theme');
@@ -583,18 +832,64 @@ icon.classList.toggle('fa-moon');
 icon.classList.toggle('fa-sun');
 localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
 }
+
+// Theme color switcher
+document.querySelectorAll('.color-option').forEach(option => {
+option.addEventListener('click', function() {
+const theme = this.getAttribute('data-theme');
+
+
+// Remove all theme classes
+document.body.classList.remove('theme-red', 'theme-blue', 'theme-gray', 'theme-yellow', 'theme-purple');
+
+
+// Add selected theme class if not default
+if (theme !== 'default') {
+  document.body.classList.add('theme-' + theme);
+}
+
+// Update active state
+document.querySelectorAll('.color-option').forEach(opt => {
+  opt.classList.remove('active');
+});
+this.classList.add('active');
+
+// Save theme preference
+localStorage.setItem('color-theme', theme);
+});
+});
+
+function closeAd() {
+document.querySelector('.ad-banner').style.display = 'none';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+// Load theme preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
 document.body.classList.add('light-theme');
 document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
 }
+
+// Load color theme preference
+const savedColorTheme = localStorage.getItem('color-theme');
+if (savedColorTheme && savedColorTheme !== 'default') {
+document.body.classList.add('theme-' + savedColorTheme);
+document.querySelectorAll('.color-option').forEach(opt => {
+  opt.classList.remove('active');
+  if (opt.getAttribute('data-theme') === savedColorTheme) {
+    opt.classList.add('active');
+  }
+});
+}
+
 setTimeout(() => {
 document.querySelectorAll('.progress-fill').forEach((fill, index) => {
 const percentages = [80, 15, 5];
 fill.style.width = percentages[index] + '%';
 });
 }, 500);
+
 const particles = [];
 const particleCount = 40;
 const canvas = document.createElement('canvas');
