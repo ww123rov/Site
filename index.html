@@ -776,7 +776,6 @@ color: var(--text-color);
 </p>
 </div>
 
-<!-- New card for language usage frequency -->
 <div class="card animate-slide-right delay-6">
 <div class="card-header">
 <div class="card-icon">
@@ -811,7 +810,6 @@ color: var(--text-color);
 </div>
 </div>
 
-<!-- Ad banner -->
 <div class="ad-banner">
 <div class="ad-image">
 <img src="olga.png" alt="Olga">
@@ -819,7 +817,7 @@ color: var(--text-color);
 <div class="ad-content">
 <div class="ad-title">Ольга</div>
 <div class="ad-text">За куни - куплю айфон</div>
-<div class="ad-location"><i class="fas fa-map-marker-alt"></i> Нахожусь 387 от тебя</div>
+<div class="ad-location"><i class="fas fa-map-marker-alt"></i> Нахожусь 387м от тебя</div>
 </div>
 <div class="ad-close" onclick="closeAd()"><i class="fas fa-times"></i></div>
 </div>
@@ -833,28 +831,23 @@ icon.classList.toggle('fa-sun');
 localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
 }
 
-// Theme color switcher
 document.querySelectorAll('.color-option').forEach(option => {
 option.addEventListener('click', function() {
 const theme = this.getAttribute('data-theme');
 
 
-// Remove all theme classes
 document.body.classList.remove('theme-red', 'theme-blue', 'theme-gray', 'theme-yellow', 'theme-purple');
 
 
-// Add selected theme class if not default
 if (theme !== 'default') {
   document.body.classList.add('theme-' + theme);
 }
 
-// Update active state
 document.querySelectorAll('.color-option').forEach(opt => {
   opt.classList.remove('active');
 });
 this.classList.add('active');
 
-// Save theme preference
 localStorage.setItem('color-theme', theme);
 });
 });
@@ -864,14 +857,12 @@ document.querySelector('.ad-banner').style.display = 'none';
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-// Load theme preference
 const savedTheme = localStorage.getItem('theme');
 if (savedTheme === 'light') {
 document.body.classList.add('light-theme');
 document.querySelector('.theme-toggle i').classList.replace('fa-moon', 'fa-sun');
 }
 
-// Load color theme preference
 const savedColorTheme = localStorage.getItem('color-theme');
 if (savedColorTheme && savedColorTheme !== 'default') {
 document.body.classList.add('theme-' + savedColorTheme);
