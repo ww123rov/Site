@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ww123rov ・ Information</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', Arial, Helvetica, sans-serif;
+      background: linear-gradient(to bottom right, #0a0a0a, #171717);
+      color: #f3f4f6;
+      min-height: 100vh;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    .bg-elements {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.2;
+    }
+
+    .bg-blob-1 {
+      position: absolute;
+      top: 25%;
+      left: 25%;
+      width: 24rem;
+      height: 24rem;
+      border-radius: 9999px;
+      background-color: rgba(168, 85, 247, 0.1);
+      filter: blur(3rem);
+      animation: pulse 15s ease-in-out infinite alternate;
+    }
+
+    .bg-blob-2 {
+      position: absolute;
+      bottom: 25%;
+      right: 25%;
+      width: 24rem;
+      height: 24rem;
+      border-radius: 9999px;
+      background-color: rgba(139, 92, 246, 0.1);
+      filter: blur(3rem);
+      animation: pulse 20s ease-in-out infinite alternate-reverse;
+    }
+
+    .bg-blob-3 {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40rem;
+      height: 40rem;
+      border-radius: 9999px;
+      background-color: rgba(99, 102, 241, 0.05);
+      filter: blur(3rem);
+      animation: pulse 25s ease-in-out infinite;
+    }
+
+    .bg-grid-pattern {
+      position: absolute;
+      inset: 0;
+      background-size: 50px 50px;
+      background-image: linear-gradient(to right, rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+      opacity: 0.5;
+    }
+
+    .container {
+      max-width: 72rem;
+      margin: 0 auto;
+      padding: 3rem 1rem;
+      position: relative;
+      z-index: 10;
+    }
+
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      padding: 1.5rem;
+      background-color: rgba(17, 24, 39, 0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 1rem;
+      border: 1px solid rgba(31, 41, 55, 0.5);
+      animation: fadeIn 0.7s ease-out forwards;
+      box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .profile-header:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px -15px rgba(168, 85, 247, 0.2);
+    }
+
+    @media (min-width: 768px) {
+      .profile-header {
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+    }
+
+    .avatar-container {
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .avatar-container:hover {
+      transform: scale(1.05);
+    }
+
+    .avatar-glow {
+      position: absolute;
+      inset: -2px;
+      background: linear-gradient(to right, #9333ea, #8b5cf6);
+      border-radius: 9999px;
+      opacity: 0.75;
+      filter: blur(4px);
+      transition: opacity 0.5s, filter 0.5s;
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    .avatar-container:hover .avatar-glow {
+      opacity: 1;
+      filter: blur(6px);
+    }
+
+    .avatar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 8rem;
+      height: 8rem;
+      background-color: #111827;
+      border-radius: 9999px;
+      overflow: hidden;
+      border: 2px solid #1f2937;
+      transition: border-color 0.3s ease;
+    }
+
+    .avatar-container:hover .avatar {
+      border-color: #8b5cf6;
+    }
+
+    .avatar img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 9999px;
+      transition: transform 0.5s ease;
+    }
+
+    .avatar-container:hover img {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .profile-info {
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .profile-info {
+        text-align: left;
+      }
+    }
+
+    .profile-name {
+      font-size: 2.25rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, #c084fc, #a78bfa, #818cf8);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: text-shadow 0.3s ease;
+    }
+
+    .profile-header:hover .profile-name {
+      text-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+    }
+
+    .status-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 640px) {
+      .status-container {
+        flex-direction: row;
+      }
+    }
+
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.375rem 0.75rem;
+      border-radius: 9999px;
+      background-color: rgba(31, 41, 55, 0.7);
+      border: 1px solid rgba(55, 65, 81, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    .status-badge:hover {
+      background-color: rgba(31, 41, 55, 0.9);
+      transform: translateY(-2px);
+    }
+
+    .status-indicator {
+      width: 0.625rem;
+      height: 0.625rem;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+    }
+
+    .status-text {
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .status-online { 
+      background-color: #10b981; 
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+      animation: pulse 2s infinite;
+    }
+    
+    .status-idle { 
+      background-color: #f59e0b; 
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+      animation: pulse 2s infinite;
+    }
+    
+    .status-dnd { 
+      background-color: #ef4444; 
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+      animation: pulse 2s infinite;
+    }
+    
+    .status-offline { 
+      background-color: #6b7280; 
+      box-shadow: 0 0 5px rgba(107, 114, 128, 0.3);
+    }
+
+    .game-icon {
+      width: 1rem;
+      height: 1rem;
+      color: #c084fc;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .cards-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .cards-grid {
+        grid-template-columns: 1fr 1fr 1fr;
+      }
+    }
+
+    .card {
+      background-color: rgba(17, 24, 39, 0.5);
+      backdrop-filter: blur(4px);
+      border-radius: 0.5rem;
+      border: 1px solid rgba(31, 41, 55, 0.5);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      opacity: 0;
+      transform: translateY(20px);
+      animation: cardFadeIn 0.8s forwards;
+    }
+
+    .card:hover {
+      transform: translateY(-0.5rem) scale(1.01);
+      box-shadow: 0 10px 25px -5px rgba(168, 85, 247, 0.1), 0 10px 10px -5px rgba(168, 85, 247, 0.04);
+      border-color: rgba(168, 85, 247, 0.3);
+    }
+
+    .card-header {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+    }
+
+    .card-icon-container {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 0.5rem;
+      background-color: rgba(168, 85, 247, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover .card-icon-container {
+      background-color: rgba(168, 85, 247, 0.2);
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .card-icon {
+      width: 1.25rem;
+      height: 1.25rem;
+      color: #c084fc;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.1);
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .card:hover .card-title {
+      color: #c084fc;
+    }
+
+    .card-content {
+      padding: 1.5rem;
+      padding-top: 0;
+    }
+
+    .list {
+      list-style: none;
+      margin-bottom: 1.5rem;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #d1d5db;
+      transition: all 0.2s ease;
+      margin-bottom: 0.75rem;
+      padding: 0.25rem 0;
+      border-radius: 0.25rem;
+    }
+
+    .list-item:hover {
+      color: #ffffff;
+      transform: translateX(5px);
+      background-color: rgba(168, 85, 247, 0.05);
+      padding-left: 0.5rem;
+    }
+
+    .list-bullet {
+      color: #c084fc;
+    }
+
+    .link {
+      color: #c084fc;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    .link:hover {
+      color: #a78bfa;
+    }
+
+    .link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background-color: currentColor;
+      transition: width 0.3s ease;
+    }
+
+    .link:hover::after {
+      width: 100%;
+    }
+
+    .link-icon {
+      width: 0.75rem;
+      height: 0.75rem;
+      opacity: 0.7;
+      transition: all 0.2s ease;
+    }
+
+    .link:hover .link-icon {
+      opacity: 1;
+      transform: translateX(2px);
+    }
+
+    .badges-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      background-color: rgba(168, 85, 247, 0.1);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .badge:hover {
+      background-color: rgba(168, 85, 247, 0.2);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 6px -1px rgba(168, 85, 247, 0.1);
+    }
+
+    .text-sm {
+      font-size: 0.875rem;
+    }
+
+    .text-gray-400 {
+      color: #9ca3af;
+    }
+
+    .text-gray-300 {
+      color: #d1d5db;
+    }
+
+    .mb-1 {
+      margin-bottom: 0.25rem;
+    }
+
+    .mb-2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .mb-4 {
+      margin-bottom: 1rem;
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+
+    .news-container {
+      border-left: 2px solid rgba(168, 85, 247, 0.3);
+      padding-left: 1rem;
+      margin-top: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .card:hover .news-container {
+      border-left-color: rgba(168, 85, 247, 0.6);
+    }
+
+    .news-tag {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: 0.375rem;
+      background-color: rgba(168, 85, 247, 0.1);
+      color: #c084fc;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .news-item:hover .news-tag {
+      background-color: rgba(168, 85, 247, 0.2);
+      transform: translateX(-2px);
+    }
+
+    .news-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      transition: color 0.3s ease;
+    }
+
+    .news-item:hover .news-title {
+      color: #c084fc;
+    }
+
+    .news-item {
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
+      padding: 0.5rem 0;
+    }
+
+    .news-item:hover {
+      transform: translateX(5px);
+    }
+
+    .quote {
+      position: relative;
+      padding: 1rem;
+      padding-left: 1.5rem;
+      border-left: 4px solid #a855f7;
+      background-color: rgba(168, 85, 247, 0.05);
+      border-radius: 0 0.5rem 0.5rem 0;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover .quote {
+      background-color: rgba(168, 85, 247, 0.1);
+      transform: translateX(5px);
+      box-shadow: 0 4px 6px -1px rgba(168, 85, 247, 0.1);
+    }
+
+    .quote-text {
+      color: #d1d5db;
+      font-style: italic;
+    }
+
+    .quote-author {
+      margin-top: 0.5rem;
+      text-align: right;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #e5e7eb;
+    }
+
+    .progress-container {
+      margin-bottom: 1rem;
+    }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
+
+    .progress-bar {
+      height: 0.5rem;
+      background-color: #1f2937;
+      border-radius: 9999px;
+      overflow: hidden;
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(to right, #a855f7, #8b5cf6);
+      border-radius: 9999px;
+      width: 0;
+      transition: width 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes cardFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.05);
+        opacity: 0.8;
+      }
+    }
+
+    @keyframes glow {
+      0% {
+        opacity: 0.5;
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 0.8;
+        filter: blur(6px);
+      }
+    }
+
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
+    .card:nth-child(6) { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+  <div class="bg-elements">
+    <div class="bg-blob-1"></div>
+    <div class="bg-blob-2"></div>
+    <div class="bg-blob-3"></div>
+    <div class="bg-grid-pattern"></div>
+  </div>
+
+  <div class="container">
+    <header class="profile-header">
+      <div class="avatar-container">
+        <div class="avatar-glow"></div>
+        <div class="avatar">
+          <img src="logo.png" alt="ww123rov logo">
+        </div>
+      </div>
+
+      <div class="profile-info">
+        <h1 class="profile-name">ww123rov</h1>
+
+        <div class="status-container">
+          <div class="status-badge">
+            <span id="status-indicator" class="status-indicator status-offline"></span>
+            <span id="status-text" class="status-text">Оффлайн</span>
+          </div>
+
+          <div id="game-activity" class="status-badge" style="display: none;">
+            <svg class="game-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="6" y="11" width="12" height="8" rx="1"></rect>
+              <rect x="10" y="17" width="4" height="2" rx="1"></rect>
+              <path d="M12 17v-6"></path>
+              <path d="M8 8V7a4 4 0 0 1 8 0v1"></path>
+              <path d="M16 11h2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2h-2"></path>
+              <path d="M8 11H6a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h2"></path>
+            </svg>
+            <span id="game-name" class="status-text">Играет в игру</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon-container">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <h2 class="card-title">Основное</h2>
+        </div>
+        <div class="card-content">
+          <ul class="list">
+            <li class="list-item">
+              <span class="list-bullet">•</span> Возраст: 16
+            </li>
+            <li class="list-item">
+              <span class="list-bullet">•</span> Родился в: Украине
+            </li>
+            <li class="list-item">
+              <span class="list-bullet">•</span> Нахожус в: Польше
+            </li>
+            <li class="list-item">
+              <span class="list-bullet">•</span> Время: (GMT+2)
+            </li>
+            <li class="list-item">
+              <span class="list-bullet">•</span> Языки: Русский, Украинский, Польский, Дартянский
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon-container">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+          </div>
+          <h2 class="card-title">Контакты</h2>
+        </div>
+        <div class="card-content">
+          <ul class="list">
+            <li class="list-item">
+              <span class="list-bullet">•</span> Discord:
+              <a href="https://discord.com/users/830702760952463400" target="_blank" rel="noopener noreferrer" class="link">
+                ww123rov
+                <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </li>
+            <li class="list-item">
+              <span class="list-bullet">•</span> Telegram:
+              <a href="https://t.me/ww123rov" target="_blank" rel="noopener noreferrer" class="link">
+                ww123rov
+                <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </li>
+            <li class="list-item">
+              <span class="list-bullet">•</span> VK:
+              <a href="https://vk.com/dartinusUA" target="_blank" rel="noopener noreferrer" class="link">
+                dartinusUA
+                <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon-container">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </div>
+          <h2 class="card-title">Навыки</h2>
+        </div>
+        <div class="card-content">
+          <div class="badges-container">
+            <span class="badge">Java</span>
+            <span class="badge">HTML</span>
+            <span class="badge">CSS</span>
+            <span class="badge">Python</span>
+            <span class="badge">JS</span>
+          </div>
+          <p class="text-sm text-gray-400">
+            В основном работаю с плагинами для Minecraft и личным чит-клиентом.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon-container">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+              <polyline points="2 17 12 22 22 17"></polyline>
+              <polyline points="2 12 12 17 22 12"></polyline>
+            </svg>
+          </div>
+          <h2 class="card-title">Проекты</h2>
+        </div>
+        <div class="card-content">
+          <ul class="list">
+            <li class="list-item">
+              <span class="list-bullet">•</span> DART404:
+              <a href="https://discord.gg/m8RRBSen5j" target="_blank" rel="noopener noreferrer" class="link">
+                Discord
+                <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </li>
+            <li class="list-item">
+              <span class="list-bullet">•</span> Nexgen Client:
+              <a href="https://discord.gg/Kbhg9ztK6d" target="_blank" rel="noopener noreferrer" class="link">
+                Discord
+                <svg class="link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </li>
+          </ul>
+
+          <div class="news-container">
+            <div class="news-item">
+              <div class="news-tag">Последние новости</div>
+              <h3 class="news-title">Nexgen Client</h3>
+              <p class="text-sm text-gray-400">
+                Разработка и поддержка Minecraft чит-клиента временно остоновлена.
+              </p>
+            </div>
+            <div class="news-item">
+              <div class="news-tag">Последние новости</div>
+              <h3 class="news-title">DART404</h3>
+              <p class="text-sm text-gray-400">Сервер находиться в переработке.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon-container">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+          </div>
+          <h2 class="card-title">О себе</h2>
+        </div>
+        <div class="card-content">
+          <p class="text-gray-300 mb-6">
+            Обычный типок, который страдает фигнёй в интернете. Страшный майнсруфтер/хойщик. Есть претензии ко мне?
+            – пошёл нахуй.
+          </p>
+
+          <blockquote class="quote">
+            <p class="quote-text">
+              "Если тебя ебут в жопу — лучшее, что можно сделать, это получить от этого удовольствие."
+            </p>
+            <footer class="quote-author">— Великий ww123rov</footer>
+          </blockquote>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon-container">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+          </div>
+          <h2 class="card-title">Частота использования языка</h2>
+        </div>
+        <div class="card-content">
+          <div class="progress-container">
+            <div class="progress-header">
+              <span class="text-sm text-gray-400">Java</span>
+              <span class="text-sm text-gray-400">80%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="java-progress"></div>
+            </div>
+          </div>
+
+          <div class="progress-container">
+            <div class="progress-header">
+              <span class="text-sm text-gray-400">Python</span>
+              <span class="text-sm text-gray-400">15%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="python-progress"></div>
+            </div>
+          </div>
+
+          <div class="progress-container">
+            <div class="progress-header">
+              <span class="text-sm text-gray-400">JavaScript</span>
+              <span class="text-sm text-gray-400">5%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="js-progress"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    setTimeout(() => {
+      document.getElementById('java-progress').style.width = '80%';
+      document.getElementById('python-progress').style.width = '15%';
+      document.getElementById('js-progress').style.width = '5%';
+    }, 500);
+
+    async function fetchDiscordStatus() {
+      const userId = "830702760952463400";
+      try {
+        const response = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
+        const data = await response.json();
+
+        if (data.success) {
+          const userData = data.data;
+          updateDiscordStatus(userData.discord_status);
+
+          const gameActivity = userData.activities?.find(activity => activity.type === 0);
+          if (gameActivity) {
+            document.getElementById('game-activity').style.display = 'flex';
+            document.getElementById('game-name').textContent = `Играет в ${gameActivity.name}`;
+          } else {
+            document.getElementById('game-activity').style.display = 'none';
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching Discord status:", error);
+      }
+    }
+
+    function updateDiscordStatus(status) {
+      const statusIndicator = document.getElementById('status-indicator');
+      const statusText = document.getElementById('status-text');
+      
+      statusIndicator.classList.remove('status-online', 'status-idle', 'status-dnd', 'status-offline');
+      
+      switch (status) {
+        case "online":
+          statusIndicator.classList.add('status-online');
+          statusText.textContent = "Онлайн";
+          break;
+        case "idle":
+          statusIndicator.classList.add('status-idle');
+          statusText.textContent = "Неактивен";
+          break;
+        case "dnd":
+          statusIndicator.classList.add('status-dnd');
+          statusText.textContent = "Не беспокоить";
+          break;
+        default:
+          statusIndicator.classList.add('status-offline');
+          statusText.textContent = "Оффлайн";
+      }
+    }
+
+    fetchDiscordStatus();
+    setInterval(fetchDiscordStatus, 60000);
+  </script>
+</body>
+</html>
