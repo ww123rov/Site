@@ -1260,6 +1260,14 @@
           <span id="spotify-status" class="status-text">Слушает Spotify</span>
         </div>
       </div>
+
+      <div class="search-container">
+        <input type="search" id="searchInput" placeholder="Поиск по сайту..." aria-label="Поиск по сайту" />
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
     </div>
   </header>
 
@@ -1591,6 +1599,7 @@
       </div>
     </div>
   </div>
+  <div id="noResultsMessage" style="display:none; text-align: center; color: var(--text-muted); margin-top: 2rem; font-size: 1.25rem;" role="status" aria-live="polite">Ничего не найдено.</div>
 </div>
 
 <script>
@@ -1857,6 +1866,100 @@ ws.onerror = (error) => {
     checkScroll();
     
     window.addEventListener('scroll', checkScroll);
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const cardsGrid = document.querySelector('.cards-grid');
+    const cards = cardsGrid.querySelectorAll('.card');
+    let noResultsMessage = document.getElementById('noResultsMessage');
+
+    // If noResultsMessage div isn't manually added to HTML, create and append it.
+    // (It's added in this diff, but this is good practice)
+    if (!noResultsMessage) {
+        noResultsMessage = document.createElement('div');
+        noResultsMessage.id = 'noResultsMessage';
+        noResultsMessage.style.display = 'none';
+        noResultsMessage.style.textAlign = 'center';
+        noResultsMessage.style.color = 'var(--text-muted)';
+        noResultsMessage.style.marginTop = '2rem';
+        noResultsMessage.style.fontSize = '1.25rem';
+        noResultsMessage.textContent = 'Ничего не найдено.';
+        cardsGrid.parentNode.appendChild(noResultsMessage); // Append after cards-grid
+    }
+
+    function extractTextFromCard(card) {
+        let text = '';
+        const selectors = [
+            '.card-title', 
+            '.list-item', 
+            '.badge', 
+            '.text-sm', // Catches <p class="text-sm text-gray-400">
+            '.news-title', 
+            '.news-tag', 
+            '.quote-text', 
+            '.lang-description', // For language card details
+            '.music-title',     // For music card
+            '.music-artist',    // For music card
+            '.timeline-title',
+            '.timeline-description',
+            'p.text-gray-300' // For "О себе" card paragraph
+        ];
+        selectors.forEach(selector => {
+            card.querySelectorAll(selector).forEach(el => {
+                text += (el.textContent || el.innerText || '') + ' ';
+            });
+        });
+        return text.trim();
+    }
+
+    searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        let resultsFound = false;
+
+        cards.forEach(card => {
+            // Ensure this card is not part of the header or some other non-content area
+            // This check is simple and assumes cards are only in the cardsGrid for content
+            const cardText = extractTextFromCard(card).toLowerCase();
+            if (cardText.includes(searchTerm)) {
+                card.style.display = ''; // Reverts to CSS defined display (grid item)
+                resultsFound = true;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (resultsFound) {
+            noResultsMessage.style.display = 'none';
+            cardsGrid.style.display = ''; // Or 'grid'
+
+            // Find the first visible card and scroll to it
+            const firstVisibleCard = Array.from(cards).find(card => card.style.display !== 'none');
+            
+            if (firstVisibleCard) {
+                // Check if the card is already (mostly) in view to avoid jarring scrolls
+                const cardRect = firstVisibleCard.getBoundingClientRect();
+                // Check if top is within viewport and at least a small part of the bottom is also visible,
+                // or if the card is larger than viewport, check if top is above viewport and bottom is below.
+                const isMostlyInView = (cardRect.top >= 0 && cardRect.top < window.innerHeight / 2);
+
+                if (!isMostlyInView) {
+                     // Delay slightly to ensure the layout has updated from display changes
+                    setTimeout(() => {
+                        firstVisibleCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 150); // Small delay, slightly increased
+                }
+            }
+        } else if (searchTerm !== '') {
+            noResultsMessage.style.display = 'block';
+            cardsGrid.style.display = 'none';
+        } else { // Search term is empty
+            noResultsMessage.style.display = 'none';
+            cardsGrid.style.display = ''; 
+            // Optionally, scroll to top if search is cleared
+            // window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
   });
 </script>
 </body>
