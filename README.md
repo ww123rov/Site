@@ -5,6 +5,8 @@
 
 **Живая версия:** https://ww123rov.github.io/Site/
 
+> Этот README писал не автор, а ИИ — автору было лень.
+
 ## Стек
 
 | Что | Чем |
@@ -24,6 +26,7 @@ npm run build      # сборка в dist/
 npm run preview    # посмотреть сборку
 npm run lint       # ESLint
 npm run typecheck  # tsc без emit
+npm run deploy     # сборка + публикация на Pages
 ```
 
 Нужен Node 20.19+ или 22.12+ (требование Vite 8).
@@ -41,6 +44,7 @@ src/
   components/           карточки страницы
   styles/tokens.css     примитивы -> семантические токены
   styles/app.css        база, компоненты, утилиты
+scripts/publish.mjs     сборка dist/ -> ветка gh-pages
 ```
 
 `usePresence` открывает сокет Lanyard, отвечает на `op 1` своим `op 3` каждые
@@ -50,9 +54,18 @@ src/
 
 ## Деплой
 
-Пуш в `main` запускает `.github/workflows/deploy.yml`: линт, сборка, публикация
-`dist/` в GitHub Pages. В настройках репозитория **Settings → Pages → Source**
-должно быть выбрано **GitHub Actions**.
+```bash
+npm run deploy
+```
+
+Скрипт собирает `dist/`, кладёт его коммитом в ветку `gh-pages` и пушит. Ветка
+содержит только собранные файлы, история `main` при этом не трогается. В
+**Settings → Pages → Source** выбрана ветка `gh-pages`, папка `/`.
+
+В репозитории лежит и `.github/workflows/deploy.yml` — он делает то же самое
+через GitHub Actions (линт, сборка, публикация артефакта). Пока Actions в аккаунте
+не выполняются, рабочий способ — скрипт выше; когда заработают, достаточно
+переключить источник Pages обратно на GitHub Actions.
 
 ## Доступность
 
