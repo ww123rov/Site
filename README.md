@@ -62,10 +62,9 @@ npm run deploy
 содержит только собранные файлы, история `main` при этом не трогается. В
 **Settings → Pages → Source** выбрана ветка `gh-pages`, папка `/`.
 
-В репозитории лежит и `.github/workflows/deploy.yml` — он делает то же самое
-через GitHub Actions (линт, сборка, публикация артефакта). Пока Actions в аккаунте
-не выполняются, рабочий способ — скрипт выше; когда заработают, достаточно
-переключить источник Pages обратно на GitHub Actions.
+GitHub Actions здесь не используются: на аккаунте стоит блокировка по биллингу,
+задание не стартует вообще («The job was not started because your account is
+locked due to a billing issue»), поэтому workflow из репозитория убран.
 
 ## Доступность
 
