@@ -1,0 +1,98 @@
+@theme {
+  --color-ink-950: #07070a;
+  --color-ink-900: #0b0b0f;
+  --color-ink-100: #f2f2f6;
+  --color-ink-200: #c8c8d2;
+  --color-ink-300: #9d9daa;
+  --color-ink-400: #8a8a97;
+  --color-ink-500: #6e6e7a;
+  --color-ink-700: #3a3a44;
+  --color-ink-800: #26262c;
+
+  --color-gold-300: #f2dc9a;
+  --color-gold-400: #e6c46a;
+  --color-gold-500: #d4af37;
+  --color-gold-700: #8b7122;
+
+  --color-presence-online: #22c55e;
+  --color-presence-idle: #eab308;
+  --color-presence-dnd: #f0555f;
+  --color-presence-offline: #8a8a97;
+
+  --font-sans:
+    "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", "Cascadia Mono", "Segoe UI Mono", "Roboto Mono",
+    monospace;
+
+  --tracking-display: -0.032em;
+  --tracking-title: -0.018em;
+  --tracking-body: -0.006em;
+  --tracking-caps: 0.08em;
+
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --duration-press: 140ms;
+  --duration-hover: 200ms;
+  --duration-reveal: 260ms;
+  --duration-progress: 900ms;
+
+  --radius-control: 10px;
+  --radius-card: 16px;
+  --radius-card-lg: 20px;
+}
+
+:root {
+  color-scheme: dark;
+
+  --surface-base: var(--color-ink-950);
+  --surface-1: color-mix(in oklab, #fff 4%, transparent);
+  --surface-2: color-mix(in oklab, #fff 6.5%, transparent);
+  --surface-3: color-mix(in oklab, #fff 9%, transparent);
+  --surface-inset: color-mix(in oklab, #000 45%, transparent);
+
+  --fg: var(--color-ink-100);
+  --fg-secondary: var(--color-ink-200);
+  --fg-muted: var(--color-ink-300);
+  --fg-subtle: var(--color-ink-400);
+
+  --accent: var(--color-gold-400);
+  --accent-strong: var(--color-gold-500);
+  --accent-deep: var(--color-gold-700);
+
+  --line: color-mix(in oklab, #fff 8%, transparent);
+  --line-strong: color-mix(in oklab, var(--color-gold-500) 26%, transparent);
+  --line-control: var(--color-ink-500);
+
+  --focus-ring: var(--color-gold-400);
+
+  --shadow-card:
+    0 1px 2px color-mix(in oklab, #000 60%, transparent),
+    0 12px 40px -12px color-mix(in oklab, #000 80%, transparent);
+  --shadow-raised:
+    0 2px 4px color-mix(in oklab, #000 55%, transparent),
+    0 18px 50px -14px color-mix(in oklab, #000 85%, transparent);
+
+  --space-card: 1.25rem;
+  --space-section: 1rem;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --surface-1: #111114;
+    --surface-2: #17171a;
+    --surface-3: #1d1d20;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --fg-muted: var(--color-ink-200);
+    --fg-subtle: var(--color-ink-300);
+    --line: color-mix(in oklab, #fff 22%, transparent);
+    --line-control: var(--color-ink-400);
+  }
+}

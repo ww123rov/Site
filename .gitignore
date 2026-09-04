@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+
+# Archived pre-React page, kept locally as a reference only
+legacy/
+
+# Tooling caches
+.vite/
+*.tsbuildinfo
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and env
+*.log
+npm-debug.log*
+.env
+.env.*
+!.env.example
