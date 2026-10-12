@@ -1,3 +1,4 @@
+import type { Lang } from "./profile";
 import type { DiscordStatus, DiscordUser } from "./lanyard-types";
 
 export function avatarUrl(user: DiscordUser | null, size = 256): string | null {
@@ -7,29 +8,32 @@ export function avatarUrl(user: DiscordUser | null, size = 256): string | null {
 }
 
 interface StatusMeta {
-  label: string;
+  label: Record<Lang, string>;
   color: string;
 }
 
 const STATUS: Record<DiscordStatus, StatusMeta> = {
-  online: { label: "В сети", color: "var(--color-presence-online)" },
-  idle: { label: "Неактивен", color: "var(--color-presence-idle)" },
-  dnd: { label: "Не беспокоить", color: "var(--color-presence-dnd)" },
-  offline: { label: "Не в сети", color: "var(--color-presence-offline)" },
+  online: { label: { ru: "В сети", en: "Online" }, color: "var(--color-presence-online)" },
+  idle: { label: { ru: "Неактивен", en: "Idle" }, color: "var(--color-presence-idle)" },
+  dnd: { label: { ru: "Не беспокоить", en: "Do Not Disturb" }, color: "var(--color-presence-dnd)" },
+  offline: { label: { ru: "Не в сети", en: "Offline" }, color: "var(--color-presence-offline)" },
 };
 
 export function statusMeta(status: DiscordStatus | undefined): StatusMeta {
   return (status && STATUS[status]) || STATUS.offline;
 }
 
-export function activeDevice(p: {
-  active_on_discord_desktop: boolean;
-  active_on_discord_mobile: boolean;
-  active_on_discord_web: boolean;
-}): string | null {
-  if (p.active_on_discord_mobile) return "телефон";
-  if (p.active_on_discord_desktop) return "компьютер";
-  if (p.active_on_discord_web) return "браузер";
+export function activeDevice(
+  p: {
+    active_on_discord_desktop: boolean;
+    active_on_discord_mobile: boolean;
+    active_on_discord_web: boolean;
+  },
+  lang: Lang = "ru",
+): string | null {
+  if (p.active_on_discord_mobile) return lang === "ru" ? "телефон" : "mobile";
+  if (p.active_on_discord_desktop) return lang === "ru" ? "компьютер" : "desktop";
+  if (p.active_on_discord_web) return lang === "ru" ? "браузер" : "web";
   return null;
 }
 

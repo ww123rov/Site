@@ -6,6 +6,36 @@
   html {
     -webkit-text-size-adjust: 100%;
     scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--color-gold-500) 24%, transparent) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-gold-500) 24%, transparent);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--color-gold-400) 55%, transparent);
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
   }
 
   body {
@@ -93,37 +123,16 @@
     position: relative;
     border-radius: var(--radius-card);
     border: 1px solid var(--line);
-    background-image: linear-gradient(
-      160deg,
-      var(--surface-2) 0%,
-      var(--surface-1) 100%
-    );
+    background-color: var(--surface-1);
     box-shadow: var(--shadow-card);
     backdrop-filter: blur(18px) saturate(140%);
-  }
-
-  .card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding-top: 1px;
-    background: linear-gradient(
-      to bottom,
-      color-mix(in oklab, #fff 9%, transparent),
-      transparent 45%
-    );
-    mask:
-      linear-gradient(#000 0 0) content-box exclude,
-      linear-gradient(#000 0 0);
-    pointer-events: none;
   }
 
   .card-title {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.9375rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--fg);
   }
@@ -132,20 +141,74 @@
     border-radius: var(--radius-control);
     border: 1px solid var(--line);
     background-color: var(--surface-1);
-    transition:
-      background-color var(--duration-hover) ease,
-      border-color var(--duration-hover) ease,
-      transform var(--duration-press) var(--ease-out);
+    transition: background-color var(--duration-hover) ease;
   }
 
   .control:active {
-    transform: scale(0.985);
+    transform: scale(0.98);
   }
 
   @media (hover: hover) and (pointer: fine) {
     .control:hover {
-      background-color: var(--surface-3);
-      border-color: var(--line-strong);
+      background-color: var(--surface-2);
+    }
+  }
+
+  .glitch-icon {
+    display: inline-block;
+    color: var(--accent);
+    animation: mc-glitch 0.9s steps(1) infinite;
+    will-change: transform, filter;
+  }
+
+  @keyframes mc-glitch {
+    0% {
+      transform: translate(-1px, 0.5px);
+      filter: drop-shadow(-1px 0 0 #00ffff) drop-shadow(1px 0 0 #ff0055);
+    }
+    9% {
+      transform: translate(1px, -0.5px) skewX(-2deg);
+      filter: drop-shadow(1.5px 0 0 #ff0055) drop-shadow(-1.5px 0 0 #00ffff);
+    }
+    18% {
+      transform: translate(-0.5px, -1px);
+      filter: drop-shadow(-1px 0 0 #00ffff) drop-shadow(1px 0 0 #ff0055);
+    }
+    27% {
+      transform: translate(1.5px, 0.5px) skewX(2deg);
+      filter: drop-shadow(1px 0 0 #ff0055) drop-shadow(-1px 0 0 #00ffff);
+    }
+    36% {
+      transform: translate(-1px, 1px);
+      filter: drop-shadow(-1.5px 0 0 #00ffff) drop-shadow(1.5px 0 0 #ff0055);
+    }
+    45% {
+      transform: translate(0.5px, -0.5px);
+      filter: drop-shadow(1px 0 0 #ff0055) drop-shadow(-1px 0 0 #00ffff);
+    }
+    54% {
+      transform: translate(-1.5px, 0.5px) skewX(-1deg);
+      filter: drop-shadow(-1px 0 0 #00ffff) drop-shadow(1px 0 0 #ff0055);
+    }
+    63% {
+      transform: translate(1px, 1px);
+      filter: drop-shadow(1.5px 0 0 #ff0055) drop-shadow(-1.5px 0 0 #00ffff);
+    }
+    72% {
+      transform: translate(-0.5px, -1px) skewX(2deg);
+      filter: drop-shadow(-1.5px 0 0 #00ffff) drop-shadow(1.5px 0 0 #ff0055);
+    }
+    81% {
+      transform: translate(1.5px, -0.5px);
+      filter: drop-shadow(1px 0 0 #ff0055) drop-shadow(-1px 0 0 #00ffff);
+    }
+    90% {
+      transform: translate(-1px, 0.5px) skewX(-2deg);
+      filter: drop-shadow(-1px 0 0 #00ffff) drop-shadow(1px 0 0 #ff0055);
+    }
+    100% {
+      transform: translate(-1px, 0.5px);
+      filter: drop-shadow(-1px 0 0 #00ffff) drop-shadow(1px 0 0 #ff0055);
     }
   }
 
@@ -158,8 +221,33 @@
     background-color: color-mix(in oklab, var(--accent-strong) 8%, transparent);
     padding-inline: 0.625rem;
     padding-block: 0.25rem;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     color: var(--fg-secondary);
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-control);
+    border: 1px solid var(--line-strong);
+    background: var(--surface-base);
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    color: var(--fg);
+    box-shadow: var(--shadow-raised);
+    animation: toast-in 220ms var(--ease-spring);
+  }
+
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.95);
+    }
   }
 
   .meter {
@@ -208,7 +296,41 @@
   }
 }
 
+::view-transition-group(root) {
+  animation-duration: 220ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::view-transition-old(root) {
+  animation: 220ms cubic-bezier(0.16, 1, 0.3, 1) both lang-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 220ms cubic-bezier(0.16, 1, 0.3, 1) both lang-fade-in;
+}
+
+@keyframes lang-fade-out {
+  to {
+    opacity: 0;
+    filter: blur(2.5px);
+  }
+}
+
+@keyframes lang-fade-in {
+  from {
+    opacity: 0;
+    filter: blur(2.5px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  .glitch-icon {
+    animation: none;
+  }
+
   .reveal {
     animation: fade var(--duration-reveal) var(--ease-out) backwards;
     animation-delay: 0ms;

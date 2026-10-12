@@ -1,56 +1,39 @@
-import { SKILLS } from "../lib/profile";
-import { clampPercent } from "../lib/discord";
+import { SKILLS, type Lang } from "../lib/profile";
 import { Card, CardHeader } from "./Card";
-import { ChartIcon } from "./icons";
+import { CodeIcon, JavaIcon, TypeScriptIcon, JavaScriptIcon } from "./icons";
 
-export function Skills({ index }: { index: number }) {
+const ICONS: Record<string, typeof JavaIcon> = {
+  Java: JavaIcon,
+  TypeScript: TypeScriptIcon,
+  JS: JavaScriptIcon,
+};
+
+interface SkillsProps {
+  index: number;
+  lang: Lang;
+}
+
+export function Skills({ index, lang }: SkillsProps) {
   return (
     <Card index={index}>
-      <CardHeader icon={<ChartIcon className="size-4" />}>
-        Языки и стек
+      <CardHeader icon={<CodeIcon className="size-4" />}>
+        {lang === "ru" ? "Технологии" : "Technologies"}
       </CardHeader>
 
-      <ul className="space-y-3.5">
+      <div className="flex flex-wrap gap-2">
         {SKILLS.map((skill) => {
-          const share = clampPercent(skill.share);
+          const Icon = ICONS[skill];
           return (
-            <li key={skill.name}>
-              <div className="mb-1.5 flex items-baseline justify-between gap-3">
-                <span className="text-sm font-medium text-[var(--fg-secondary)]">
-                  {skill.name}
-                </span>
-                <span className="tabular text-xs text-[var(--fg-subtle)]">
-                  {share}%
-                </span>
-              </div>
-
-              <div
-                className="meter h-1.5"
-                role="meter"
-                aria-valuenow={share}
-                aria-valuemin={0}
-                aria-valuemax={100}
-                aria-label={`${skill.name}: ${share}% — ${skill.note}`}
-              >
-                <div
-                  className="meter-fill"
-                  style={
-                    {
-                      "--fill": share / 100,
-                      backgroundImage:
-                        "linear-gradient(90deg, var(--accent-deep), var(--accent))",
-                    } as React.CSSProperties
-                  }
-                />
-              </div>
-
-              <p className="mt-1.5 text-xs text-[var(--fg-subtle)]">
-                {skill.note}
-              </p>
-            </li>
+            <span
+              key={skill}
+              className="inline-flex items-center gap-1.5 rounded-md border border-[var(--line)] bg-[var(--surface-2)] px-3 py-1.5 text-sm font-mono font-medium text-[var(--fg)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--accent)]"
+            >
+              {Icon && <Icon className="size-3.5 text-[var(--accent)] shrink-0 -translate-y-px" />}
+              <span>{skill}</span>
+            </span>
           );
         })}
-      </ul>
+      </div>
     </Card>
   );
 }

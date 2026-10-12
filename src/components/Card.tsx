@@ -27,7 +27,8 @@ export function CardHeader({ icon, children, aside }: CardHeaderProps) {
   return (
     <header className="mb-4 flex items-center justify-between gap-3">
       <h2 className="card-title">
-        <span className="text-[var(--accent)]">{icon}</span>
+        <span className="text-[var(--accent)] shrink-0 -translate-y-px">{icon}</span>
+        <span aria-hidden="true" className="h-3.5 w-px shrink-0 bg-[var(--line-strong)]" />
         {children}
       </h2>
       {aside}

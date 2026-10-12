@@ -3,9 +3,9 @@
   --color-ink-900: #0b0b0f;
   --color-ink-100: #f2f2f6;
   --color-ink-200: #c8c8d2;
-  --color-ink-300: #9d9daa;
-  --color-ink-400: #8a8a97;
-  --color-ink-500: #6e6e7a;
+  --color-ink-300: #c5c5d6;
+  --color-ink-400: #a8a8bd;
+  --color-ink-500: #7e7e92;
   --color-ink-700: #3a3a44;
   --color-ink-800: #26262c;
 
@@ -17,7 +17,7 @@
   --color-presence-online: #22c55e;
   --color-presence-idle: #eab308;
   --color-presence-dnd: #f0555f;
-  --color-presence-offline: #8a8a97;
+  --color-presence-offline: #a8a8bd;
 
   --font-sans:
     "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
@@ -34,9 +34,10 @@
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   --duration-press: 140ms;
-  --duration-hover: 200ms;
+  --duration-hover: 220ms;
   --duration-reveal: 260ms;
   --duration-progress: 900ms;
 

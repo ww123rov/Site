@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { clampPercent, formatDuration } from "../lib/discord";
-import { FAVOURITE_ARTISTS } from "../lib/profile";
+import { FAVOURITE_ARTISTS, type Lang } from "../lib/profile";
 import type { Spotify } from "../lib/lanyard-types";
 import { useNow } from "../hooks/useNow";
 import { Card, CardHeader } from "./Card";
@@ -24,7 +24,7 @@ function AlbumArt({ spotify }: { spotify: Spotify }) {
   return (
     <img
       src={src}
-      alt={`Обложка: ${spotify.album}`}
+      alt={spotify.album}
       width={112}
       height={112}
       loading="lazy"
@@ -35,9 +35,8 @@ function AlbumArt({ spotify }: { spotify: Spotify }) {
   );
 }
 
-function NowPlaying({ spotify }: { spotify: Spotify }) {
+function NowPlaying({ spotify, lang }: { spotify: Spotify; lang: Lang }) {
   const now = useNow(true);
-
   const { start, end } = spotify.timestamps;
   const total = Math.max(1, end - start);
   const elapsed = Math.min(total, Math.max(0, now - start));
@@ -48,23 +47,23 @@ function NowPlaying({ spotify }: { spotify: Spotify }) {
       <div className="flex gap-3">
         <AlbumArt spotify={spotify} />
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-medium text-[var(--fg)]">
+          <p className="truncate text-[13.5px] font-semibold text-[var(--fg)]">
             {spotify.song}
           </p>
-          <p className="truncate text-xs text-[var(--fg-muted)]">
+          <p className="truncate text-xs font-medium text-[var(--fg-secondary)]">
             {spotify.artist}
           </p>
-          <p className="mt-0.5 truncate text-xs text-[var(--fg-subtle)]">
+          <p className="mt-0.5 truncate text-xs text-[var(--fg-muted)]">
             {spotify.album}
           </p>
         </div>
       </div>
 
       <div className="flex items-center gap-2.5">
-        <span className="tabular text-xs text-[var(--fg-subtle)]">
+        <span className="tabular text-xs font-mono text-[var(--fg-subtle)]">
           {formatDuration(elapsed)}
         </span>
-        <div className="meter h-1 flex-1" aria-hidden="true">
+        <div className="meter h-1.5 flex-1" aria-hidden="true">
           <div
             className="meter-fill"
             style={
@@ -78,7 +77,7 @@ function NowPlaying({ spotify }: { spotify: Spotify }) {
             }
           />
         </div>
-        <span className="tabular text-xs text-[var(--fg-subtle)]">
+        <span className="tabular text-xs font-mono text-[var(--fg-subtle)]">
           {formatDuration(total)}
         </span>
       </div>
@@ -88,22 +87,26 @@ function NowPlaying({ spotify }: { spotify: Spotify }) {
           href={`https://open.spotify.com/track/${encodeURIComponent(spotify.track_id)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="control flex min-h-11 items-center justify-center gap-2 px-3 text-xs font-medium text-[var(--fg-secondary)]"
+          className="control flex min-h-10 items-center justify-center gap-2 px-3 text-xs font-semibold text-[var(--fg-secondary)]"
         >
-          <SpotifyIcon className="size-4" />
-          Открыть в Spotify
-          <span className="sr-only">(откроется в новой вкладке)</span>
+          <SpotifyIcon className="size-4 text-[#1DB954]" />
+          <span>{lang === "ru" ? "Открыть в Spotify" : "Open in Spotify"}</span>
+          <span className="sr-only">
+            {lang === "ru" ? "(откроется в новой вкладке)" : "(opens in new tab)"}
+          </span>
         </a>
       ) : null}
     </div>
   );
 }
 
-function Idle() {
+function Idle({ lang }: { lang: Lang }) {
   return (
-    <div className="flex flex-col items-center gap-2 py-6 text-[var(--fg-subtle)]">
-      <MusicIcon className="size-8 opacity-40" />
-      <p className="text-xs">Сейчас ничего не слушает</p>
+    <div className="flex flex-col items-center gap-2 py-6 text-[var(--fg-muted)]">
+      <MusicIcon className="size-8 opacity-40 text-[var(--fg-subtle)]" />
+      <p className="text-[13px]">
+        {lang === "ru" ? "Сейчас ничего не играет" : "Not listening to music right now"}
+      </p>
     </div>
   );
 }
@@ -111,9 +114,10 @@ function Idle() {
 interface MusicProps {
   spotify: Spotify | null;
   index: number;
+  lang: Lang;
 }
 
-export function Music({ spotify, index }: MusicProps) {
+export function Music({ spotify, index, lang }: MusicProps) {
   const playing = Boolean(spotify?.timestamps?.start && spotify.timestamps.end);
 
   return (
@@ -122,22 +126,22 @@ export function Music({ spotify, index }: MusicProps) {
         icon={<MusicIcon className="size-4" />}
         aside={
           playing ? (
-            <span className="chip border-transparent bg-transparent px-0 text-xs text-[var(--accent)]">
-              Играет
+            <span className="chip border-emerald-500/30 bg-emerald-500/10 text-xs font-medium text-emerald-400">
+              {lang === "ru" ? "Сейчас играет" : "Playing now"}
             </span>
           ) : null
         }
       >
-        Музыка
+        {lang === "ru" ? "Spotify" : "Spotify"}
       </CardHeader>
 
       <div aria-live="polite">
-        {playing && spotify ? <NowPlaying spotify={spotify} /> : <Idle />}
+        {playing && spotify ? <NowPlaying spotify={spotify} lang={lang} /> : <Idle lang={lang} />}
       </div>
 
       <div className="mt-4 border-t border-[var(--line)] pt-3.5">
-        <h3 className="mb-2 text-xs font-medium tracking-[var(--tracking-caps)] text-[var(--fg-subtle)] uppercase">
-          Часто слушает
+        <h3 className="mb-2 text-xs font-bold tracking-[var(--tracking-caps)] text-[var(--fg-subtle)] uppercase">
+          {lang === "ru" ? "Часто слушает" : "Top Artists"}
         </h3>
         <ul className="flex flex-wrap gap-1.5">
           {FAVOURITE_ARTISTS.map((artist) => (
