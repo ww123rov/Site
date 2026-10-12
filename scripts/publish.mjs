@@ -34,9 +34,16 @@ rmSync(indexFile, { force: true });
 git("add", "-A", "-f", ".");
 const tree = git("write-tree");
 
+try {
+  git("fetch", "origin", branch);
+} catch {}
+
 let parent = null;
 try {
-  parent = git("rev-parse", "--verify", "--quiet", `refs/heads/${branch}`) || null;
+  parent =
+    git("rev-parse", "--verify", "--quiet", `refs/remotes/origin/${branch}`) ||
+    git("rev-parse", "--verify", "--quiet", `refs/heads/${branch}`) ||
+    null;
 } catch {
   parent = null;
 }
