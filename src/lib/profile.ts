@@ -12,30 +12,6 @@ export const IDENTITY = {
   },
 } as const;
 
-export interface Fact {
-  label: Record<Lang, string>;
-  value: Record<Lang, string>;
-  icon: "calendar" | "pin" | "globe";
-}
-
-export const FACTS: readonly Fact[] = [
-  {
-    label: { ru: "Возраст", en: "Age" },
-    value: { ru: "17 лет", en: "17 y.o." },
-    icon: "calendar",
-  },
-  {
-    label: { ru: "Локация", en: "Location" },
-    value: { ru: "Вроцлав, Польша", en: "Wrocław, Poland" },
-    icon: "pin",
-  },
-  {
-    label: { ru: "Языки", en: "Languages" },
-    value: { ru: "RU · UA · PL · EN", en: "RU · UA · PL · EN" },
-    icon: "globe",
-  },
-];
-
 export const SKILLS: readonly string[] = ["Java", "TypeScript", "JS"];
 
 export interface Project {

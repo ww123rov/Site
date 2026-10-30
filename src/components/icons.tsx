@@ -20,27 +20,6 @@ const brand = {
   focusable: false,
 } as const;
 
-export const CalendarIcon = (p: IconProps) => (
-  <svg {...outline} {...p}>
-    <rect x="3" y="4.5" width="18" height="16" rx="3" />
-    <path d="M8 3v3M16 3v3M3 10h18" />
-  </svg>
-);
-
-export const PinIcon = (p: IconProps) => (
-  <svg {...outline} {...p}>
-    <path d="M20 10.5c0 6-8 12-8 12s-8-6-8-12a8 8 0 1 1 16 0Z" />
-    <circle cx="12" cy="10.5" r="2.75" />
-  </svg>
-);
-
-export const ClockIcon = (p: IconProps) => (
-  <svg {...outline} {...p}>
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 7.5V12l3 1.8" />
-  </svg>
-);
-
 export const GlobeIcon = (p: IconProps) => (
   <svg {...outline} {...p}>
     <circle cx="12" cy="12" r="9" />
