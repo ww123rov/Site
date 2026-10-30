@@ -7,10 +7,10 @@ import type { Lang } from "../lib/profile";
 const UUID = "29a21ecf-448b-4eb8-9e75-0fe8777ca256";
 
 const TIERS = [
-  { mode: "OP", tier: "LT4", icon: "/items/pearl.png?v=3d" },
-  { mode: "NetherPOT", tier: "LT3", icon: "/items/potion.png?v=3d" },
-  { mode: "UCH", tier: "HT5", icon: "/items/gapple.png?v=3d" },
-  { mode: "SWORD", tier: "HT4", icon: "/items/sword.png?v=3d" },
+  { mode: "OP", tier: "LT4", icon: "./items/pearl.png" },
+  { mode: "NetherPOT", tier: "LT3", icon: "./items/potion.png" },
+  { mode: "UCH", tier: "HT5", icon: "./items/gapple.png" },
+  { mode: "SWORD", tier: "HT4", icon: "./items/sword.png" },
 ] as const;
 
 interface MinecraftSkinProps {
