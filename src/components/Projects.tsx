@@ -38,11 +38,12 @@ export function Projects({ index, lang }: ProjectsProps) {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         {PROJECTS.map((project) => {
           const Icon = ICONS[project.icon];
+          const isGlitch = project.name === "REVELESS";
 
           return (
             <article
               key={project.name}
-              className={`control relative flex flex-col justify-between overflow-hidden p-4 sm:p-5 ${
+              className={`project-card relative flex flex-col justify-between overflow-hidden p-4 sm:p-5 ${
                 project.blurred ? "select-none pointer-events-none" : ""
               }`}
             >
@@ -53,82 +54,82 @@ export function Projects({ index, lang }: ProjectsProps) {
                 aria-hidden={project.blurred ? true : undefined}
               >
                 <div>
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-base font-bold text-[var(--fg)]">
-                    {project.name}
-                  </h3>
-                  <Icon
-                    className={`size-4 shrink-0 -translate-y-px ${
-                      project.icon === "minecraft"
-                        ? "glitch-icon"
-                        : "text-[var(--fg-subtle)]"
-                    }`}
-                  />
-                </div>
-
-                <p className="mt-2 text-[13.5px] leading-relaxed text-[var(--fg-muted)]">
-                  {project.description[lang]}
-                </p>
-
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {project.stack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-md bg-[var(--surface-2)] px-2 py-0.5 text-xs font-mono font-medium text-[var(--fg-secondary)] border border-[var(--line)]"
+                  <div className="flex items-center justify-between gap-2">
+                    <h3
+                      className={`text-base font-bold text-[var(--fg)] ${
+                        isGlitch ? "glitch-text" : ""
+                      }`}
                     >
-                      {tech}
-                    </span>
-                  ))}
+                      {project.name}
+                    </h3>
+                    <Icon
+                      className={`size-4 shrink-0 -translate-y-px ${
+                        project.icon === "minecraft"
+                          ? "glitch-icon"
+                          : "text-[var(--fg-subtle)]"
+                      }`}
+                    />
+                  </div>
+
+                  <p className="mt-2 text-[13.5px] leading-relaxed text-[var(--fg-muted)]">
+                    {project.description[lang]}
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-1.5">
+                    {project.stack.map((tech) => (
+                      <span
+                        key={tech}
+                        className="rounded-md bg-[var(--surface-2)] px-2 py-0.5 text-xs font-mono font-medium text-[var(--fg-secondary)] border border-[var(--line)]"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              <div className="mt-5 pt-3 border-t border-[var(--line)] flex items-center justify-between gap-2">
-                {project.disabled ? (
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--fg-muted)] leading-none select-none">
-                    <DownloadIcon className="size-3.5 shrink-0 -translate-y-px text-[var(--accent)]" />
-                    <span>{project.linkLabel[lang]}</span>
-                  </span>
-                ) : (
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:underline leading-none"
-                  >
-                    <Icon className="size-3.5 shrink-0 -translate-y-px" />
-                    <span>{project.linkLabel[lang]}</span>
-                    <ArrowOutIcon className="size-3 shrink-0 -translate-y-px" />
-                    <span className="sr-only">
-                      {lang === "ru" ? "(откроется в новой вкладке)" : "(opens in new tab)"}
+                <div className="mt-5 pt-3 border-t border-[var(--line)] flex items-center justify-between gap-2">
+                  {project.disabled ? (
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--fg-muted)] leading-none select-none">
+                      <DownloadIcon className="size-3.5 shrink-0 -translate-y-px text-[var(--accent)]" />
+                      <span>{project.linkLabel[lang]}</span>
                     </span>
-                  </a>
-                )}
-
-                {project.githubHref && (
-                  <div className="group/git relative inline-flex items-center">
+                  ) : (
                     <a
-                      href={project.githubHref}
+                      href={project.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--fg-secondary)] hover:text-[var(--fg)] hover:underline leading-none"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--accent)] hover:underline leading-none"
                     >
-                      <GitHubIcon className="size-3.5 shrink-0 -translate-y-px" />
-                      <span>GitHub</span>
+                      <Icon className="size-3.5 shrink-0 -translate-y-px" />
+                      <span>{project.linkLabel[lang]}</span>
                       <ArrowOutIcon className="size-3 shrink-0 -translate-y-px" />
                       <span className="sr-only">
                         {lang === "ru" ? "(откроется в новой вкладке)" : "(opens in new tab)"}
                       </span>
                     </a>
-                    {project.githubPrivate && (
-                      <span className="pointer-events-none absolute bottom-full mb-1.5 right-0 translate-y-1 opacity-0 group-hover/git:opacity-100 group-hover/git:translate-y-0 group-focus-within/git:opacity-100 group-focus-within/git:translate-y-0 transition-all duration-200 rounded-md border border-red-500 bg-[#1e0507] px-2 py-0.5 text-[11px] font-mono font-bold text-red-400 shadow-lg shadow-red-950/90 whitespace-nowrap z-20">
-                        {lang === "ru" ? "Приватный" : "Private"}
-                      </span>
-                    )}
-                  </div>
-                )}
+                  )}
+
+                  {project.githubHref && (
+                    <div className="inline-flex items-center gap-1.5">
+                      <a
+                        href={project.githubHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-[var(--fg-secondary)] hover:text-[var(--fg)] hover:underline leading-none"
+                      >
+                        <GitHubIcon className="size-3.5 shrink-0 -translate-y-px" />
+                        <span>GitHub</span>
+                      </a>
+                      {project.githubPrivate && (
+                        <span className="text-[11px] font-mono text-rose-400">
+                          ({lang === "ru" ? "приватный" : "private"})
+                        </span>
+                      )}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          </article>
+            </article>
           );
         })}
       </div>
@@ -150,7 +151,7 @@ export function Projects({ index, lang }: ProjectsProps) {
                 href={repo.html_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="control flex flex-col justify-between p-3.5"
+                className="project-card flex flex-col justify-between p-3.5"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2">

@@ -132,8 +132,8 @@ export const CONTACTS: readonly ContactLink[] = [
 
 export const ABOUT = {
   body: {
-    ru: "Пишу плагины и моды на Java (Paper, Spigot), сайты на React и TypeScript. В свободное время играю в Hoi4 и Майн.",
-    en: "I write Minecraft plugins and mods in Java (Paper, Spigot), and websites with React and TypeScript. In my spare time I play Hoi4 and Minecraft.",
+    ru: "Пишу плагины и моды на Minecraft, сайты на React и TypeScript. В свободное время играю в Hoi4 и Майн.",
+    en: "I write Minecraft plugins and mods, and websites with React and TypeScript. In my spare time I play Hoi4 and Minecraft.",
   },
   motto: {
     ru: "Искал медь — сгорел медведь.",

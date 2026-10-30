@@ -20,17 +20,17 @@ export function Skills({ index, lang }: SkillsProps) {
         {lang === "ru" ? "Технологии" : "Technologies"}
       </CardHeader>
 
-      <div className="flex flex-wrap gap-2">
-        {SKILLS.map((skill) => {
+      <div className="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-xs sm:text-sm text-[var(--fg)]">
+        {SKILLS.map((skill, i) => {
           const Icon = ICONS[skill];
           return (
-            <span
-              key={skill}
-              className="inline-flex items-center gap-1.5 rounded-md border border-[var(--line)] bg-[var(--surface-2)] px-3 py-1.5 text-sm font-mono font-medium text-[var(--fg)] transition-colors hover:border-[var(--line-strong)] hover:text-[var(--accent)]"
-            >
-              {Icon && <Icon className="size-3.5 text-[var(--accent)] shrink-0 -translate-y-px" />}
-              <span>{skill}</span>
-            </span>
+            <div key={skill} className="flex items-center gap-2">
+              {Icon && <Icon className="size-3.5 text-[var(--accent)] shrink-0" />}
+              <span className="font-semibold">{skill}</span>
+              {i < SKILLS.length - 1 && (
+                <span className="text-[var(--fg-subtle)] ml-3" aria-hidden="true">/</span>
+              )}
+            </div>
           );
         })}
       </div>

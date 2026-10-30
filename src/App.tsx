@@ -7,7 +7,8 @@ import { Skills } from "./components/Skills";
 import { About } from "./components/About";
 import { Links } from "./components/Links";
 import { Music } from "./components/Music";
-import { CheckIcon } from "./components/icons";
+import { MinecraftSkin } from "./components/MinecraftSkin";
+import { CheckIcon, GlobeIcon } from "./components/icons";
 
 function ConnectionNote({ error, lang }: { error: boolean; lang: Lang }) {
   if (!error) return null;
@@ -33,8 +34,7 @@ export function App() {
     document.documentElement.lang = lang;
   }, [lang]);
 
-  const toggleLang = (next?: Lang) => {
-    const target = next ?? (lang === "ru" ? "en" : "ru");
+  const toggleLang = (target: Lang) => {
     if (target === lang) return;
     if ("startViewTransition" in document) {
       document.startViewTransition(() => {
@@ -56,16 +56,42 @@ export function App() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
+    <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 sm:py-10 lg:px-8">
+      <nav className="mb-4 flex items-center justify-end text-xs font-mono text-[var(--fg-subtle)]">
+        <div className="flex items-center gap-1">
+          <GlobeIcon className="size-3.5 text-[var(--fg-subtle)] mr-1" />
+          <button
+            type="button"
+            onClick={() => toggleLang("ru")}
+            className={`px-1.5 py-0.5 transition-colors ${
+              lang === "ru" ? "text-[var(--accent)] font-bold" : "hover:text-[var(--fg)]"
+            }`}
+          >
+            RU
+          </button>
+          <span>/</span>
+          <button
+            type="button"
+            onClick={() => toggleLang("en")}
+            className={`px-1.5 py-0.5 transition-colors ${
+              lang === "en" ? "text-[var(--accent)] font-bold" : "hover:text-[var(--fg)]"
+            }`}
+          >
+            EN
+          </button>
+        </div>
+      </nav>
+
       <Hero
         presence={presence}
         lang={lang}
-        onToggleLang={toggleLang}
         onCopy={showToast}
       />
 
       <main className="mt-5 flex flex-col gap-5">
         <Projects index={1} lang={lang} />
+
+        <MinecraftSkin lang={lang} onCopy={showToast} />
 
         <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2">
           <div className="flex flex-col gap-5">

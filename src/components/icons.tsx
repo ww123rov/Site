@@ -153,6 +153,18 @@ export const CopyIcon = (p: IconProps) => (
   </svg>
 );
 
+export const PlayIcon = (p: IconProps) => (
+  <svg {...brand} {...p}>
+    <path d="M8 5v14l11-7z" />
+  </svg>
+);
+
+export const PauseIcon = (p: IconProps) => (
+  <svg {...brand} {...p}>
+    <path d="M6 5h4v14H6zm8 0h4v14h-4z" />
+  </svg>
+);
+
 export const CheckIcon = (p: IconProps) => (
   <svg {...outline} {...p}>
     <path d="M20 6 9 17l-5-5" />

@@ -61,8 +61,8 @@ export function Links({ index, lang, onCopy }: LinksProps) {
                         {contact.label}
                       </span>
                       {contact.badge && (
-                        <span className="rounded bg-[var(--surface-3)] px-1.5 py-0.2 text-[11px] font-mono text-[var(--accent)]">
-                          {contact.badge[lang]}
+                        <span className="text-[11px] font-mono text-[var(--accent)]">
+                          · {contact.badge[lang]}
                         </span>
                       )}
                     </span>

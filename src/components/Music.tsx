@@ -126,8 +126,8 @@ export function Music({ spotify, index, lang }: MusicProps) {
         icon={<MusicIcon className="size-4" />}
         aside={
           playing ? (
-            <span className="chip border-emerald-500/30 bg-emerald-500/10 text-xs font-medium text-emerald-400">
-              {lang === "ru" ? "Сейчас играет" : "Playing now"}
+            <span className="text-xs font-mono font-medium text-emerald-400">
+              {lang === "ru" ? "Играет сейчас" : "Listening now"}
             </span>
           ) : null
         }
@@ -143,13 +143,16 @@ export function Music({ spotify, index, lang }: MusicProps) {
         <h3 className="mb-2 text-xs font-bold tracking-[var(--tracking-caps)] text-[var(--fg-subtle)] uppercase">
           {lang === "ru" ? "Часто слушает" : "Top Artists"}
         </h3>
-        <ul className="flex flex-wrap gap-1.5">
-          {FAVOURITE_ARTISTS.map((artist) => (
-            <li key={artist} className="chip">
-              {artist}
-            </li>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs text-[var(--fg-secondary)] font-mono">
+          {FAVOURITE_ARTISTS.map((artist, i) => (
+            <span key={artist} className="flex items-center gap-3">
+              <span>{artist}</span>
+              {i < FAVOURITE_ARTISTS.length - 1 && (
+                <span className="text-[var(--fg-subtle)]" aria-hidden="true">/</span>
+              )}
+            </span>
           ))}
-        </ul>
+        </div>
       </div>
     </Card>
   );
